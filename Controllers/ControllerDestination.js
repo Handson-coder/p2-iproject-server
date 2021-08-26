@@ -1,4 +1,4 @@
-const { Destination, Category } = require('../models')
+const { Destination, Category, Wishlist } = require('../models')
 
 class ControllerDestination {
   static async create(req, res, next) {
@@ -19,7 +19,7 @@ class ControllerDestination {
         name: result.name,
         country: result.country,
         city: result.city,
-        price: result.price, 
+        price: result.price,
         image: result.image,
         categoryId: result.categoryId,
         authorId: result.authorId,
@@ -92,6 +92,24 @@ class ControllerDestination {
       const result = await Destination.destroy({ where: { id } })
       // console.log(result);
       res.status(200).json({ message: `Destination has been deleted` })
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  static async addUserWishlist(req, res, next) {
+    const { id } = req.params
+    try {
+      const destination = await Destination.findByPk(id)
+      if (!destination) throw ({ name: "data not found" })
+      else {
+        const result = await Wishlist.create({
+          UserId: req.user.id,
+          DestinationId: destination.id
+        }, id)
+        console.log(result);
+        res.status(201).json(result)
+      }
     } catch (err) {
       next(err)
     }

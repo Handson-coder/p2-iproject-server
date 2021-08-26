@@ -1,25 +1,6 @@
 const { Wishlist, Destination, Category } = require('../models')
 
 class ControllerWishList {
-  static async addUserWishlist(req, res, next) {
-    const { id } = req.params
-    try {
-      const destination = await Destination.findByPk(id)
-      console.log(destination);
-      if (!destination) throw ({ name: "data not found" })
-      else {
-        const result = await Wishlist.create({
-          UserId: req.user.id,
-          DestinationId: destination.id
-        }, id)
-        console.log(result);
-        res.status(201).json(result)
-      }
-    } catch (err) {
-      next(err)
-    }
-  }
-
   static async findWishListsByUserId(req, res, next) {
     try {
       const result = await Wishlist.findAll(
