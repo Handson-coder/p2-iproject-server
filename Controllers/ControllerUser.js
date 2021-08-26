@@ -38,11 +38,12 @@ class ControllerUser {
   }
 
   static async userLoginned(req, res, next) {
+    const { id } = req.user
     try {
       const access_token = req.headers.access_token
       const payload = verifyToken(access_token)
       const { email, role } = payload
-      res.status(200).json({ email, role})
+      res.status(200).json({ id , email, role })
     } catch (err) {
       next(err)
     }

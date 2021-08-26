@@ -47,7 +47,9 @@ class ControllerDestination {
   static async findByPk(req, res, next) {
     const { id } = req.params
     try {
-      const result = await Destination.findByPk(id)
+      const result = await Destination.findByPk(id, {
+        include: Category // untuk keperluan form edit
+      })
       if (result) {
         res.status(200).json(result)
       } else throw ({ name: `data not found` })
@@ -63,8 +65,6 @@ class ControllerDestination {
       city: req.body.city,
       price: req.body.price,
       image: req.body.imageUrl,
-      categoryId: req.body.categoryId,
-      authorId: req.user.id
     };
     const { id } = req.params
     try {
@@ -78,8 +78,6 @@ class ControllerDestination {
         city: result[1][0].city,
         price: result[1][0].price,
         image: result[1][0].image,
-        categoryId: result[1][0].categoryId,
-        authorId: result[1][0].authorId,
         updatedAt: new Date(),
         createdAt: new Date()
       })

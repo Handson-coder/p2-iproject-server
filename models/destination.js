@@ -50,7 +50,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     image: DataTypes.STRING,
-    authorId: DataTypes.INTEGER
+    authorId: DataTypes.INTEGER,
+    categoryId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Destination',
