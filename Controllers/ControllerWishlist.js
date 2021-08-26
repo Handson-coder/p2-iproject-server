@@ -1,4 +1,5 @@
 const { Wishlist, Destination, Category } = require('../models')
+const main = require('../helpers/nodemailer')
 
 class ControllerWishList {
   static async findWishListsByUserId(req, res, next) {
@@ -20,6 +21,20 @@ class ControllerWishList {
       )
       res.status(200).json(result)
     } catch (err) {
+      next(err)
+    }
+  }
+
+  static async checkOutPackage(req, res, next) {
+    const user = req.user.email
+    const name = req.body.name
+    const city = req.body.city
+    try {
+      const result = await main(user, name, city)
+      res.status(200).json({ message: "Email Sent!, Please check your email inbox" })
+      console.log(result);
+    } catch (err) {
+      console.log(err);
       next(err)
     }
   }

@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-async function main() {
+async function main(user, name, city) {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
@@ -12,10 +12,18 @@ async function main() {
   });
   let info = await transporter.sendMail({
     from: "hansenpanggabean@gmail.com", // sender address
-    to: "hansenpanggabean@gmail.com", // list of receivers
+    to: `${user}`, // list of receivers
     subject: "Hello ✔", // Subject line
-    text: "Travel Package Confirm", // plain text body
-    html: "<b>Travel Package Confirm</b>", // html body
+    text: `
+    This is your Travel detail that you've checked out
+    Destination : ${name}
+    City        : ${city}
+    `, // plain text body
+    html: `<b>
+    This is your Travel detail that you've checked out
+    Destination : ${name}
+    City        : ${city}
+    </b>`, // html body
   });
   console.log("Message sent: %s", info.messageId);  
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));

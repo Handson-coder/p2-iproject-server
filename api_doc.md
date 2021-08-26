@@ -825,7 +825,6 @@ _Response (401 - unauthorized)_
 }
 ```
 
-
 _Response (500 - Internal Server Error)_
 
 ```
@@ -834,5 +833,59 @@ _Response (500 - Internal Server Error)_
 }
 ```
 
+---
+
+### Post /wishlists/nodemailer
+
+_Request Header_
+
+```
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJjdXN0b21lckBtYWlsLmNvbSIsInJvbGUiOiJjdXN0b21lciIsImlhdCI6MTYyOTg5ODM3Mn0._xR4nkEJiqSyzbXHxGG9Vhw8OVQE-vDd5Fp93NOMc3o"
+}
+```
+
+_Request Params_
+
+```
+not needed
+```
+
+_Request User_
+
+```
+"email" : <req.user.email>
+```
+
+_Request Body_
+
+```
+"name" : <req.body.name>
+"city" : <req.body.city>
+```
+
+_Response (200 - Success)_
+
+```
+{
+  "message": "Email Sent!, Please check your email inbox"
+}
+```
+
+_Response (403 - Forbidden)_
+
+```
+{
+  "message": "Only For Customers"
+}
+```
+
+_Response (500 - Internal Server Error)_
+
+```
+{
+  "message": "Internal Server Error"
+}
+```
 
 ---
