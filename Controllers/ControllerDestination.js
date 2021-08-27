@@ -1,4 +1,4 @@
-const { Destination, Category } = require('../models')
+const { Destination, Category, Wishlist } = require('../models')
 
 class ControllerDestination {
   static async create(req, res, next) {
@@ -19,7 +19,7 @@ class ControllerDestination {
         name: result.name,
         country: result.country,
         city: result.city,
-        price: result.price, 
+        price: result.price,
         image: result.image,
         categoryId: result.categoryId,
         authorId: result.authorId,
@@ -47,7 +47,9 @@ class ControllerDestination {
   static async findByPk(req, res, next) {
     const { id } = req.params
     try {
-      const result = await Destination.findByPk(id)
+      const result = await Destination.findByPk(id, {
+        include: Category // untuk keperluan form edit
+      })
       if (result) {
         res.status(200).json(result)
       } else throw ({ name: `data not found` })
@@ -63,8 +65,6 @@ class ControllerDestination {
       city: req.body.city,
       price: req.body.price,
       image: req.body.imageUrl,
-      categoryId: req.body.categoryId,
-      authorId: req.user.id
     };
     const { id } = req.params
     try {
@@ -78,8 +78,6 @@ class ControllerDestination {
         city: result[1][0].city,
         price: result[1][0].price,
         image: result[1][0].image,
-        categoryId: result[1][0].categoryId,
-        authorId: result[1][0].authorId,
         updatedAt: new Date(),
         createdAt: new Date()
       })
@@ -94,6 +92,24 @@ class ControllerDestination {
       const result = await Destination.destroy({ where: { id } })
       // console.log(result);
       res.status(200).json({ message: `Destination has been deleted` })
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  static async addUserWishlist(req, res, next) {
+    const { id } = req.params
+    try {
+      const destination = await Destination.findByPk(id)
+      if (!destination) throw ({ name: "data not found" })
+      else {
+        const result = await Wishlist.create({
+          UserId: req.user.id,
+          DestinationId: destination.id
+        }, id)
+        console.log(result);
+        res.status(201).json(result)
+      }
     } catch (err) {
       next(err)
     }
