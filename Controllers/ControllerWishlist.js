@@ -31,7 +31,7 @@ class ControllerWishList {
     const city = req.body.city
     try {
       const result = await main(user, name, city)
-      // console.log(result);
+      console.log("berhasil");
       res.status(200).json({ message: "Email Sent!, Please check your email inbox" })
       // console.log(result);
     } catch (err) {
