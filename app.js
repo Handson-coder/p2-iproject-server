@@ -15,21 +15,21 @@ app.use(router)
 const httpServer = require('http').createServer(app);
 const io = require('socket.io')(httpServer, {
   cors: {
-    // origin: "http://localhost:3000",
-    // origin: "https://localhost:3000",
-    // origin: "https://localhost:8080",
-    origin: "http://localhost:8080",
-    methods: ["GET", "POST"]
+    origin: "*",
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    allowedHeaders: "*",
+    credentials: true
   }
 })
 // const users = []
+// i-project-handson-vuex
 
 io.on('connection', (socket) => {
 
-  console.log('user connected');
+  // console.log('user connected');
 
   socket.on('sendMessage', (data) => {
-    console.log(data, "ini di server");
+    // console.log(data, "ini di server");
 
     // io.emit("broadcastMessage", data) // broadcast ke chatbox seharusnya
     socket.broadcast.emit("broadcastMessage", data)
