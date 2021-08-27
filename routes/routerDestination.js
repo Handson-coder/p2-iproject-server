@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const ControllerDestination = require('../controllers/ControllerDestination')
+const ControllerDestination = require('../Controllers/ControllerDestination')
 const { authorization, authorizationWishlist } = require('../middlewares/authorization')
 const authentication = require('../middlewares/authentication')
 const imageKit = require('../middlewares/imageKit')

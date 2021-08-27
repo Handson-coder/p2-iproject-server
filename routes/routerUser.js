@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const ControllerUser = require('../controllers/ControllerUser')
+const ControllerUser = require('../Controllers/ControllerUser')
 const authentication = require('../middlewares/authentication')
 
 router.get('/users',authentication, ControllerUser.userLoginned)
