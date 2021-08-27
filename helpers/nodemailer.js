@@ -11,7 +11,7 @@ async function main(user, name, city) {
     },
   });
   let info = await transporter.sendMail({
-    from: "hansenpanggabean@gmail.com", // sender address
+    from: "handsonpanggabean2@gmail.com", // sender address
     to: `${user}`, // list of receivers
     subject: "Hello ✔", // Subject line
     text: `
