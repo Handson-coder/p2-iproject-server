@@ -31,10 +31,11 @@ class ControllerWishList {
     const city = req.body.city
     try {
       const result = await main(user, name, city)
+      // console.log(result);
       res.status(200).json({ message: "Email Sent!, Please check your email inbox" })
-      console.log(result);
+      // console.log(result);
     } catch (err) {
-      console.log(err);
+      // console.log(err.message);
       next(err)
     }
   }
